@@ -1,0 +1,15 @@
+#   kubectl create clusterrolebinding netpol --clusterrole=admin --serviceaccount=kube-system:netpol
+#   kubectl create sa netpol -n kube-system
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: netpol
+spec:
+  template:
+    spec:
+      containers:
+        - name: jay-netpol
+          image: jayunit100/netpol:0.1
+          command: ["/netpol/main"]
+      serviceAccount: netpol
